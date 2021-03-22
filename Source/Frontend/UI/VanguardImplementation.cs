@@ -144,6 +144,9 @@ namespace RTCV.UI
                     case Remote.SanitizeToolReroll:
                         Reroll();
                         break;
+                    case Remote.DomainVMDAdd:
+                        AddVMD(advancedMessage.objectValue as VmdPrototype);
+                        break;
                     case Remote.TriggerHotkey:
                         {
                             string hotkey = (advancedMessage.objectValue as string);
@@ -184,7 +187,10 @@ namespace RTCV.UI
             //Specs are all set up so UI is clear.
             LocalNetCoreRouter.Route(Endpoints.Vanguard, Remote.AllSpecSent, true);
         }
-
+        private static void AddVMD(VmdPrototype proto)
+        {
+            RTCV.CorruptCore.MemoryDomains.AddVMD(proto);
+        }
         private static void AllSpecSent()
         {
             if (UICore.FirstConnect)
